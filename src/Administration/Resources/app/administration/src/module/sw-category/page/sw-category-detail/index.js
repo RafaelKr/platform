@@ -1,6 +1,7 @@
 import pageState from './state';
 import template from './sw-category-detail.html.twig';
 import './sw-category-detail.scss';
+import { initMissingSlots } from '../../../sw-cms/util/create-slots'
 
 const { Component, Mixin } = Shopware;
 const { Criteria, ChangesetGenerator } = Shopware.Data;
@@ -241,9 +242,10 @@ Component.register('sw-category-detail', {
 
             return this.cmsPageRepository.search(criteria, Shopware.Context.api).then((response) => {
                 const cmsPage = response.get(this.cmsPageId);
-                if (this.category.slotConfig !== null) {
-                    cmsPage.sections.forEach((section) => {
-                        section.blocks.forEach((block) => {
+
+                cmsPage.sections.forEach((section) => {
+                    section.blocks.forEach((block) => {
+                        if (this.category.slotConfig !== null) {
                             block.slots.forEach((slot) => {
                                 if (this.category.slotConfig[slot.id]) {
                                     if (slot.config === null) {
@@ -252,9 +254,15 @@ Component.register('sw-category-detail', {
                                     merge(slot.config, cloneDeep(this.category.slotConfig[slot.id]));
                                 }
                             });
-                        });
+                        }
+
+                        /**
+                         * We're only getting existing slots from the server.
+                         * When a block was updated with new fields they are not included, so we need to create them.
+                         */
+                        initMissingSlots(block);
                     });
-                }
+                });
 
                 this.updateCmsPageDataMapping();
                 Shopware.State.commit('cmsPageState/setCurrentPage', cmsPage);
