@@ -164,6 +164,7 @@
                         <sw-media-modal-v2
                             v-if="mediaModalIsOpen"
                             :allow-multi-select="false"
+                            :fileAccept="fileAccept"
                             @modal-close="mediaModalIsOpen = false"
                             @media-modal-selection-change="onModalClosed"
                         />
