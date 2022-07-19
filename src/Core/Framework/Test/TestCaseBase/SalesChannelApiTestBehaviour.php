@@ -126,7 +126,7 @@ trait SalesChannelApiTestBehaviour
         return $customerId;
     }
 
-    abstract protected function getKernel(): KernelInterface;
+    abstract protected static function getKernel(): KernelInterface;
 
     protected function getSalesChannelBrowser(): KernelBrowser
     {

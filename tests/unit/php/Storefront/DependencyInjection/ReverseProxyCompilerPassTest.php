@@ -91,7 +91,7 @@ class ReverseProxyCompilerPassTest extends TestCase
         static::assertFalse($container->has(FastlyReverseProxyGateway::class));
     }
 
-    public function getContainer(): ContainerBuilder
+    public static function getContainer(): ContainerBuilder
     {
         $container = new ContainerBuilder();
 

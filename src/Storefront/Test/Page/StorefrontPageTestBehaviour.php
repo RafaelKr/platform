@@ -271,7 +271,7 @@ trait StorefrontPageTestBehaviour
         });
     }
 
-    abstract protected function getContainer(): ContainerInterface;
+    abstract protected static function getContainer(): ContainerInterface;
 
     private function createCustomer(): CustomerEntity
     {

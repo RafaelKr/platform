@@ -35,7 +35,7 @@ abstract class BenchCase
         $this->getContainer()->get(Connection::class)->rollBack();
     }
 
-    public function getContainer(): ContainerInterface
+    public static function getContainer(): ContainerInterface
     {
         return KernelLifecycleManager::getKernel()->getContainer();
     }
