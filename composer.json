@@ -332,7 +332,7 @@
             "@setup",
             "@e2e:prepare"
         ],
-        "phpbench": "phpbench run --report=compressed",
+        "phpbench": "APP_ENV=test phpbench run --report=compressed",
         "e2e:prepare": [
             "@putenv APP_ENV=e2e",
             "@putenv CYPRESS_localUsage=1",
