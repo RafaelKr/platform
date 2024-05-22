@@ -87,7 +87,21 @@ Component.extend('sw-condition-line-item-custom-field', 'sw-condition-base-line-
         },
 
         operators() {
-            return this.conditionDataProviderService.getOperatorSetByComponent(this.renderedField);
+            const componentName = this.renderedField.config.componentName;
+            let operators = this.conditionDataProviderService.getOperatorSetByComponent(this.renderedField);
+
+            const isSelect = [
+                'sw-single-select',
+                'sw-entity-single-select',
+                'sw-multi-select',
+                'sw-entity-multi-id-select'
+            ].includes(componentName);
+
+            if (isSelect) {
+                operators = this.conditionDataProviderService.addEmptyOperatorToOperatorSet(operators);
+            }
+
+            return operators;
         },
 
         ...mapPropertyErrors('condition', [

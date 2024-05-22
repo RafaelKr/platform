@@ -285,10 +285,10 @@ export default class RuleConditionService {
         const componentName = component.config.componentName;
         const type = component.type;
 
-        if (componentName === 'sw-single-select') {
+        if (['sw-single-select', 'sw-entity-single-select'].includes(componentName)) {
             return this.operatorSets.singleStore;
         }
-        if (componentName === 'sw-multi-select') {
+        if (['sw-multi-select', 'sw-entity-multi-id-select'].includes(componentName)) {
             return this.operatorSets.multiStore;
         }
         if (type === 'bool') {
